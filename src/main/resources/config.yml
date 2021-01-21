@@ -1,0 +1,35 @@
+Config:
+  Groups:
+    getRankKickMessage: '&7Du hast nun den Rang %rank% &7bekommen. Wenn du nun neu joinst, hast du den Rang!'
+    defaultGroup: default
+    groupNames:
+      - default
+      - premium
+    default:
+      name: '&7Spieler'
+      prefix: '&7[Spieler] %name% >>'
+      tablist: '&7Spieler | '
+      tablistNameColor: 'gray'
+      rank: 002
+      defaultChatColor: '&f'
+      allowedColors:
+        - '&a'
+        - '&f'
+      permissions:
+        - perms.one
+        - perms.two
+    premium:
+      name: '&6Premium'
+      prefix: '&6&l[&6Premium&6&l] &6%name% &6&l>>'
+      tablist: '&6Premium | '
+      tablistNameColor: 'gold'
+      rank: 001
+      defaultChatColor: '&1'
+      allowedColors:
+        - '&a'
+        - '&4'
+        - '&l'
+        - '&6'
+      permissions:
+        - perms.one
+        - perms.two

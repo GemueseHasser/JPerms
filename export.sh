@@ -1,0 +1,1 @@
+mv /home/jonas/Dokumente/Java-Projekte/Permissions/target/JPerms.jar /home/jonas/Desktop/localServer/plugins

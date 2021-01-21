@@ -1,0 +1,18 @@
+name: '${project.name}'
+description: '${project.description}'
+version: '${project.version}'
+load: 'POSTWORLD'
+author: 'Jonas0206'
+authors: ['Jonas0206']
+website: '${project.url}'
+main: '${project.groupId}.${project.artifactId}.${project.name}'
+depend: []
+softdepend: []
+api-version: '1.13'
+loadbefore: []
+prefix: '${project.name}'
+
+commands:
+  jperms:
+    description: 'Setze einen Spieler in eine bestimmte Gruppe'
+    usage: '</command> <Player> <group>'
