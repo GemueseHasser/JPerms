@@ -7,19 +7,21 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftHumanEntity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Objects;
 
 import static de.jonas.JPerms.PREFIX;
 
+/**
+ * Der einzige Command, über den alles ausgeführt wird, wird hier implementiert.
+ */
 public class JPermCommand implements CommandExecutor {
+    //<editor-fold desc="implementation">
     @Override
     public boolean onCommand(
         @NotNull final CommandSender sender,
@@ -67,7 +69,7 @@ public class JPermCommand implements CommandExecutor {
         File file = new File("plugins/JPerms", "Users.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
-        for (String groupName : JPerms.getInstance().getConfig().getStringList("Config.Groups.groupNames")) {
+        for (final String groupName : JPerms.getInstance().getConfig().getStringList("Config.Groups.groupNames")) {
             List<String> list = cfg.getStringList("Users." + groupName);
             while (list.contains(target.getName())) {
                 list.remove(target.getName());
@@ -95,11 +97,19 @@ public class JPermCommand implements CommandExecutor {
         ).replace("&", "§"));
         return true;
     }
+    //</editor-fold>
 
-    private String getGroup(@NotNull final Player player) {
+    /**
+     * Gibt die jeweilige Permissions-Gruppe des jeweiligen {@link Player Spieler} zurück.
+     *
+     * @param player Der {@link Player Spieler}, dessen Permissions-Gruppe zurückgegeben wird.
+     *
+     * @return Die Gruppe des jeweiligen {@link Player Spieler}.
+     */
+    public static String getGroup(@NotNull final Player player) {
         File file = new File("plugins/JPerms", "Users.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-        for (String group : JPerms.getInstance().getConfig().getStringList("Config.Groups.groupNames")) {
+        for (final String group : JPerms.getInstance().getConfig().getStringList("Config.Groups.groupNames")) {
             if (cfg.getStringList("Users." + group).contains(player.getName())) {
                 return group;
             }
@@ -107,6 +117,10 @@ public class JPermCommand implements CommandExecutor {
         return null;
     }
 
+    /**
+     * Lädt die Config neu und kickt alle Spieler, sodass sie durch das Neu-Joinen von der neuen Konfiguration der
+     * Permissions in der Config gebrauch machen.
+     */
     private void reloadConfig() {
         File file = new File("plugins/JPerms", "config.yml");
         try {
@@ -114,8 +128,9 @@ public class JPermCommand implements CommandExecutor {
         } catch (final IOException e) {
             e.printStackTrace();
         }
-        for (Player all : Bukkit.getOnlinePlayers()) {
-            all.kickPlayer(JPerms.getInstance().getConfig().getString("Config.Groups.getReloadKickMessage").replace(
+        for (final Player all : Bukkit.getOnlinePlayers()) {
+            all.kickPlayer(Objects.requireNonNull(JPerms.getInstance().getConfig().getString(
+                "Config.Groups.getReloadKickMessage")).replace(
                 "&", "§"));
         }
     }

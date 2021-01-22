@@ -1,26 +1,31 @@
 package de.jonas.jperms;
 
 import de.jonas.JPerms;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
+import java.util.Objects;
 
+import static de.jonas.jperms.JPermCommand.getGroup;
+
+/**
+ * Die Chat-Funktion wird hier implementiert.
+ */
 public class OnChat implements Listener {
 
+    //<editor-fold desc="event-handling">
     @EventHandler
+    @SuppressWarnings("checkstyle:MultipleStringLiterals")
     public void onChat(@NotNull final AsyncPlayerChatEvent e) {
         Player player = e.getPlayer();
 
         String message = e.getMessage();
         message = " " + message;
-        for (String code : JPerms.getInstance().getConfig().getStringList("Config.Groups." + getGroup(player) +
-            ".allowedColors")
+        for (final String code : JPerms.getInstance().getConfig().getStringList("Config.Groups." + getGroup(player)
+            + ".allowedColors")
         ) {
             while (message.contains(code)) {
                 String[] split = message.split("(?=" + code + ")", 2);
@@ -29,28 +34,19 @@ public class OnChat implements Listener {
             }
         }
 
-        e.setFormat(JPerms.getInstance().getConfig().getString("Config.Groups." + getGroup(player) + ".prefix")
-            .replace("&", "§")
-            .replace("%name%", player.getName())
-            + JPerms.getInstance().getConfig().getString("Config.Groups." + getGroup(player) + ".defaultChatColor")
-            .replace("&", "§") + message.replace("%", "Prozent")
-            .replace(
-                "&",
-                (JPerms.getInstance().getConfig().getStringList("Config.Groups." + getGroup(player) +
-                    ".allowedColors").contains("*")) ? "§" : "&"
-            )
+        e.setFormat(Objects.requireNonNull(
+            JPerms.getInstance().getConfig().getString("Config.Groups." + getGroup(player) + ".prefix")
+            ).replace("&", "§")
+                .replace("%name%", player.getName())
+                + Objects.requireNonNull(
+            JPerms.getInstance().getConfig().getString("Config.Groups." + getGroup(player) + ".defaultChatColor")
+            ).replace("&", "§") + message.replace("%", "Prozent")
+                .replace(
+                    "&",
+                    (JPerms.getInstance().getConfig().getStringList("Config.Groups." + getGroup(player)
+                        + ".allowedColors").contains("*")) ? "§" : "&"
+                )
         );
     }
-
-    private String getGroup(@NotNull final Player player) {
-        File file = new File("plugins/JPerms", "Users.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-        for (String group : JPerms.getInstance().getConfig().getStringList("Config.Groups.groupNames")) {
-            if (cfg.getStringList("Users." + group).contains(player.getName())) {
-                return group;
-            }
-        }
-        return null;
-    }
-
+    //</editor-fold>
 }

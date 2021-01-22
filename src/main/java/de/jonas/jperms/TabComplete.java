@@ -12,7 +12,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Hier wird geregelt, was als Tab-Complete vorgeschlagen wird, wenn der Spieler den {@link JPermCommand} ausführt.
+ */
 public class TabComplete implements TabCompleter {
+    //<editor-fold desc="implementation">
     @Nullable
     @Override
     public List<String> onTabComplete(
@@ -23,7 +27,7 @@ public class TabComplete implements TabCompleter {
     ) {
         if (args.length == 1) {
             List<String> names = new ArrayList<>();
-            for (Player player : Bukkit.getOnlinePlayers()) {
+            for (final Player player : Bukkit.getOnlinePlayers()) {
                 names.add(player.getName());
             }
             names.add("rl");
@@ -34,4 +38,5 @@ public class TabComplete implements TabCompleter {
         }
         return null;
     }
+    //</editor-fold>
 }
