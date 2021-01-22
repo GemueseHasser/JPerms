@@ -53,7 +53,7 @@ Config:
     owner:
       name: '&4&lOwner'
       prefix: '&f&l[&4&lOwner&f&l] &a&l%name% &4>>'
-      tablist: '&4&lPremium | '
+      tablist: '&4&lOwner | '
       tablistNameColor: dark_red
       rank: 0
       defaultChatColor: '&a&l'
