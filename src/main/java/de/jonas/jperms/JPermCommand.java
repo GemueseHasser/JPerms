@@ -38,6 +38,12 @@ public class JPermCommand implements CommandExecutor {
             return true;
         }
 
+        if (args[0].equalsIgnoreCase("rl")) {
+            reloadConfig();
+            sender.sendMessage(PREFIX + "Du hast die Config neu geladen!");
+            return true;
+        }
+
         Player target = Bukkit.getPlayer(args[0]);
 
         if (target == null) {
@@ -46,11 +52,6 @@ public class JPermCommand implements CommandExecutor {
         }
 
         if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("rl")) {
-                reloadConfig();
-                sender.sendMessage(PREFIX + "Du hast die Config neu geladen!");
-                return true;
-            }
             sender.sendMessage(PREFIX + "Der Spieler " + target.getName() + " befindet sich in der Gruppe"
                 + " \"" + getGroup(target) + "\".");
             return true;
@@ -114,18 +115,8 @@ public class JPermCommand implements CommandExecutor {
             e.printStackTrace();
         }
         for (Player all : Bukkit.getOnlinePlayers()) {
-            injectPermissibleBase(all);
-        }
-    }
-
-    public void injectPermissibleBase(@NotNull final Player player) {
-        try {
-            Field field = CraftHumanEntity.class.getDeclaredField("perm");
-            field.setAccessible(true);
-            field.set(player, new PermsBase(player));
-            field.setAccessible(false);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
+            all.kickPlayer(JPerms.getInstance().getConfig().getString("Config.Groups.getReloadKickMessage").replace(
+                "&", "§"));
         }
     }
 }

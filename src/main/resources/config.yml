@@ -1,6 +1,8 @@
 Config:
   Groups:
-    getRankKickMessage: '&7Du hast nun den Rang %rank% &7bekommen. Wenn du nun neu joinst, hast du den Rang!'
+    getRankKickMessage: '&7Du hast nun den Rang %rank% &7bekommen. Wenn du nun neu
+      joinst, hast du den Rang!'
+    getReloadKickMessage: '&7Das Permissions-System des Servers wurde neu geladen. Du musst nun neu joinen!'
     defaultGroup: default
     groupNames:
       - default
@@ -11,8 +13,8 @@ Config:
       name: '&7Spieler'
       prefix: '&7[Spieler] %name% >>'
       tablist: '&7Spieler | '
-      tablistNameColor: 'gray'
-      rank: 003
+      tablistNameColor: gray
+      rank: 3
       defaultChatColor: '&f'
       allowedColors:
         - '&a'
@@ -24,8 +26,8 @@ Config:
       name: '&6Premium'
       prefix: '&6&l[&6Premium&6&l] &6%name% &6&l>>'
       tablist: '&6Premium | '
-      tablistNameColor: 'gold'
-      rank: 002
+      tablistNameColor: gold
+      rank: 2
       defaultChatColor: '&1'
       allowedColors:
         - '&l'
@@ -37,8 +39,8 @@ Config:
       name: '&1&lV&c&lI&6&lP'
       prefix: '&f[&1&lV&c&lI&6&lP&f] &2&l%name% &6&l>>'
       tablist: '&1&lV&c&lI&6&lP &f&l| '
-      tablistNameColor: 'gold'
-      rank: 001
+      tablistNameColor: gold
+      rank: 1
       defaultChatColor: '&c'
       allowedColors:
         - '&4'
@@ -47,14 +49,13 @@ Config:
         - '&6'
         - '&1'
       permissions:
-        - perms.one
-        - perms.two
+        - '*'
     owner:
       name: '&4&lOwner'
       prefix: '&f&l[&4&lOwner&f&l] &a&l%name% &4>>'
       tablist: '&4&lPremium | '
-      tablistNameColor: 'dark_red'
-      rank: 000
+      tablistNameColor: dark_red
+      rank: 0
       defaultChatColor: '&a&l'
       allowedColors:
         - '*'
