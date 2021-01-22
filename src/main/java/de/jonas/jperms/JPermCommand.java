@@ -122,13 +122,7 @@ public class JPermCommand implements CommandExecutor {
      * Permissions in der Config gebrauch machen.
      */
     private void reloadConfig() {
-        File file = new File("plugins/JPerms", "config.yml");
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-        try {
-            cfg.save(file);
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }
+        JPerms.getInstance().reloadConfig();
         for (final Player all : Bukkit.getOnlinePlayers()) {
             all.kickPlayer(Objects.requireNonNull(JPerms.getInstance().getConfig().getString(
                 "Config.Groups.getReloadKickMessage")).replace(
