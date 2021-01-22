@@ -123,8 +123,9 @@ public class JPermCommand implements CommandExecutor {
      */
     private void reloadConfig() {
         File file = new File("plugins/JPerms", "config.yml");
+        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
         try {
-            JPerms.getInstance().getConfig().save(file);
+            cfg.save(file);
         } catch (final IOException e) {
             e.printStackTrace();
         }
