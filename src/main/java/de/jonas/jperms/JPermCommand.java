@@ -32,7 +32,7 @@ public class JPermCommand implements CommandExecutor {
         }
 
         if (!(args.length == 2 || args.length == 1)) {
-            sender.sendMessage(PREFIX + "Bitte benutze /jperms <Player> <Group>");
+            sender.sendMessage(PREFIX + "Bitte benutze /jperms <Player> <Group> | /jperms <Player>");
             return true;
         }
 

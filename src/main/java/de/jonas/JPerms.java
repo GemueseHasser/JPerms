@@ -33,6 +33,7 @@ public class JPerms extends JavaPlugin {
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new OnJoin(), this);
         pm.registerEvents(new OnChat(), this);
+        pm.registerEvents(new TabComplete(), this);
 
         loadConfig();
 

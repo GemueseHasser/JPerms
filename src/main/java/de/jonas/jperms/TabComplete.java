@@ -6,13 +6,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.TabCompleteEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabComplete implements TabCompleter {
+public class TabComplete implements TabCompleter, Listener {
     @Nullable
     @Override
     public List<String> onTabComplete(
@@ -32,5 +36,10 @@ public class TabComplete implements TabCompleter {
                 "Config.Groups.groupNames"));
         }
         return null;
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onTabComplete(@NotNull final TabCompleteEvent e) {
+        e.setCancelled(false);
     }
 }
