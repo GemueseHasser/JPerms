@@ -3,6 +3,7 @@ package de.jonas;
 import de.jonas.jperms.JPermCommand;
 import de.jonas.jperms.OnChat;
 import de.jonas.jperms.OnJoin;
+import de.jonas.jperms.TabComplete;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -27,6 +28,7 @@ public class JPerms extends JavaPlugin {
         CONSOLE.sendMessage(PREFIX + "Das Plugin wurde erfolgreich aktiviert! by Gemuese_Hasser / Jonas0206");
 
         Objects.requireNonNull(getCommand("jperms")).setExecutor(new JPermCommand());
+        Objects.requireNonNull(getCommand("jperms")).setTabCompleter(new TabComplete());
 
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new OnJoin(), this);
