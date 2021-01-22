@@ -7,11 +7,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftHumanEntity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,7 +34,7 @@ public class JPermCommand implements CommandExecutor {
         }
 
         if (!(args.length == 2 || args.length == 1)) {
-            sender.sendMessage(PREFIX + "Bitte benutze /jperms <Player> <Group> | /jperms <Player>");
+            sender.sendMessage(PREFIX + "Bitte benutze /jperms <Player> <Group> | /jperms <Player> | /jperms rl");
             return true;
         }
 
@@ -44,6 +46,11 @@ public class JPermCommand implements CommandExecutor {
         }
 
         if (args.length == 1) {
+            if (args[0].equalsIgnoreCase("rl")) {
+                reloadConfig();
+                sender.sendMessage(PREFIX + "Du hast die Config neu geladen!");
+                return true;
+            }
             sender.sendMessage(PREFIX + "Der Spieler " + target.getName() + " befindet sich in der Gruppe"
                 + " \"" + getGroup(target) + "\".");
             return true;
@@ -97,5 +104,28 @@ public class JPermCommand implements CommandExecutor {
             }
         }
         return null;
+    }
+
+    private void reloadConfig() {
+        File file = new File("plugins/JPerms", "config.yml");
+        try {
+            JPerms.getInstance().getConfig().save(file);
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+        for (Player all : Bukkit.getOnlinePlayers()) {
+            injectPermissibleBase(all);
+        }
+    }
+
+    public void injectPermissibleBase(@NotNull final Player player) {
+        try {
+            Field field = CraftHumanEntity.class.getDeclaredField("perm");
+            field.setAccessible(true);
+            field.set(player, new PermsBase(player));
+            field.setAccessible(false);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }

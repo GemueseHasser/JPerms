@@ -30,6 +30,7 @@ public class TabComplete implements TabCompleter, Listener {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 names.add(player.getName());
             }
+            names.add("rl");
             return names;
         } else if (args.length == 2) {
             return new ArrayList<>(JPerms.getInstance().getConfig().getStringList(
