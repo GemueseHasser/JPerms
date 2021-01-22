@@ -18,7 +18,6 @@ public class OnChat implements Listener {
         Player player = e.getPlayer();
 
         String message = e.getMessage();
-        message.replace("%", "Prozent");
         message = " " + message;
         for (String code : JPerms.getInstance().getConfig().getStringList("Config.Groups." + getGroup(player) +
             ".allowedColors")
@@ -34,7 +33,13 @@ public class OnChat implements Listener {
             .replace("&", "§")
             .replace("%name%", player.getName())
             + JPerms.getInstance().getConfig().getString("Config.Groups." + getGroup(player) + ".defaultChatColor")
-            .replace("&", "§") + message);
+            .replace("&", "§") + message.replace("%", "Prozent")
+            .replace(
+                "&",
+                (JPerms.getInstance().getConfig().getStringList("Config.Groups." + getGroup(player) +
+                    ".allowedColors").contains("*")) ? "§" : "&"
+            )
+        );
     }
 
     private String getGroup(@NotNull final Player player) {

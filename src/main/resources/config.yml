@@ -5,12 +5,14 @@ Config:
     groupNames:
       - default
       - premium
+      - vip
+      - owner
     default:
       name: '&7Spieler'
       prefix: '&7[Spieler] %name% >>'
       tablist: '&7Spieler | '
       tablistNameColor: 'gray'
-      rank: 002
+      rank: 003
       defaultChatColor: '&f'
       allowedColors:
         - '&a'
@@ -23,13 +25,38 @@ Config:
       prefix: '&6&l[&6Premium&6&l] &6%name% &6&l>>'
       tablist: '&6Premium | '
       tablistNameColor: 'gold'
-      rank: 001
+      rank: 002
       defaultChatColor: '&1'
       allowedColors:
-        - '&a'
-        - '&4'
         - '&l'
         - '&6'
       permissions:
         - perms.one
         - perms.two
+    vip:
+      name: '&1&lV&c&lI&6&lP'
+      prefix: '&f[&1&lV&c&lI&6&lP&f] &2&l%name% &6&l>>'
+      tablist: '&1&lV&c&lI&6&lP &f&l| '
+      tablistNameColor: 'gold'
+      rank: 001
+      defaultChatColor: '&c'
+      allowedColors:
+        - '&4'
+        - '&c'
+        - '&l'
+        - '&6'
+        - '&1'
+      permissions:
+        - perms.one
+        - perms.two
+    owner:
+      name: '&4&lOwner'
+      prefix: '&f&l[&4&lOwner&f&l] &a&l%name% &4>>'
+      tablist: '&4&lPremium | '
+      tablistNameColor: 'dark_red'
+      rank: 000
+      defaultChatColor: '&a&l'
+      allowedColors:
+        - '*'
+      permissions:
+        - '*'
